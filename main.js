@@ -227,6 +227,8 @@ var getWeather = function (city, countryCode) {
         document.getElementById('weather-icon').src = "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png";
         document.getElementById("current-temp").innerHTML = cur_temp + '<span id="celcius">°C</span>';
         document.getElementById("current-conditions").innerHTML = data.weather[0].description;
+        document.getElementById("temp-high").innerHTML = 'High: ' + temp_high + '°C';
+        document.getElementById("temp-low").innerHTML = 'Low: ' + temp_low + '°C';
         ; })
     .catch(error => console.error(error));
 }   
