@@ -1,5 +1,7 @@
 // localStorage.clear();
 
+MY_API_KEY = "";
+
 var notesAPI = function() {
     document.getElementById("current-notes").replaceChildren();
     const notes = JSON.parse(localStorage.getItem("notesapp-notes") || "[]");
@@ -8,7 +10,6 @@ var notesAPI = function() {
 // Create div sticky note
 // Finds note in localStorage and displays it
 var popUp = function(oNote) {
-    console.log(oNote);
     const notes = JSON.parse(localStorage.getItem("notesapp-notes") || "[]");
     var note = notes.find(note => note.id == oNote.id);
     let div = document.createElement("div");
@@ -206,6 +207,30 @@ var tabChange = function (tabName) {
     };
 };
 
+// Get Location
+var getLocation = function () {
+    fetch('https://geolocation-db.com/json/')
+    .then(response => response.json())
+    .then(data => { getWeather(data.city, data.country_code); })
+    .catch(error => console.error(error));
+}
+
+// Weather
+var getWeather = function (city, countryCode) {
+    const token = MY_API_KEY;
+    fetch('https://api.openweathermap.org/data/2.5/weather?q=' + city + ',' + countryCode + '&appid=' + token)
+    .then(response => response.json())
+    .then(data => { 
+        var cur_temp = Math.round(((parseFloat(data.main.temp) - 273.15)));
+        var temp_high = Math.round(((parseFloat(data.main.temp_max) - 273.15)));
+        var temp_low = Math.round(((parseFloat(data.main.temp_min) - 273.15)));
+        document.getElementById('weather-icon').src = "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png";
+        document.getElementById("current-temp").innerHTML = cur_temp + '<span id="celcius">°C</span>';
+        document.getElementById("current-conditions").innerHTML = data.weather[0].description;
+        ; })
+    .catch(error => console.error(error));
+}   
+
 tabs_btns = document.querySelectorAll(".menu-btn");
 tabs_btns.forEach(btn => btn.addEventListener("click", function() {
     tabChange(this.textContent);
@@ -215,3 +240,4 @@ const notes = JSON.parse(localStorage.getItem("notesapp-notes") || "[]");
 displayNotes(notes);
 displayStickys(notes);
 clock();
+getLocation();
