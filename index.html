@@ -5,6 +5,7 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Page Title</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src="./main.js" async></script>
     <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,7 +30,19 @@
                 <li><a href="https://www.reddit.com/">reddit</a></li>
                 <li><a href="https://netflix.com/">netflix</a></li>
             </ul>
-            <div id="weather" class="section">thisIsTheWeather</div>
+            <div id="weather" class="section">
+                <div id = "weather-flex">
+                    <img src="" id="weather-icon" alt="weather icon">
+                    <div>
+                        <p id ="current-temp">21<span id="celcius">°C</span></p>
+                        <p id ="current-conditions">Sunny</p>
+                    </div>
+                </div>
+                <div id="temp-range">
+                    <p id="temp-high">High: 24°C</p>
+                    <p id="temp-low">Low: 20°C</p>
+                </div>
+            </div>
         </div>
         <div id="notes" class="tab">
             <ul id="current-notes" class="section"></ul>
@@ -41,6 +54,5 @@
         </div>
     </div>
 </div>
-<script src="./main.js"></script>
 </body>
 </html>

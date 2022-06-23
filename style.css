@@ -215,3 +215,34 @@ textarea:focus, input[type="text"]:focus {
     border-left: 2px solid #A16C7E;
     border-bottom-right-radius: 40px;
 }
+
+#weather {
+    width: 200px;
+}
+
+#weather-flex, #temp-range {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
+
+#current-temp {
+    font-size: 30px;
+}
+
+#celcius {
+    font-size: 20px;
+    vertical-align: top;
+}
+
+#temp-range {
+    background: rgb(191,154,159);
+background: radial-gradient(circle,  rgba(238,192,198,1) 35%, rgba(140, 116, 119, 0) 100%);
+    padding: 2px 10px;
+    margin-top: 20px;
+    font-size: 15px;
+}
+
+#temp-range p, #weather-flex div p{
+    margin: 0;
+}
