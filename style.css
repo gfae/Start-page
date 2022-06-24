@@ -18,8 +18,6 @@ a:hover {
 
 textarea {
     resize: none;
-    overflow-y: auto;
-    overflow-x: hidden;
 }
 
 textarea:focus, input[type="text"]:focus {
@@ -166,15 +164,11 @@ textarea:focus, input[type="text"]:focus {
 }
 
 .dragable textarea {
-    height: 150px;
-}
-
-.close-btn {
-    background-color: #edced2;
+    font-size: 13px;
+    color:#312530;
+    background: none;
     border: none;
-    position: absolute;
-    top: 5px;
-    right: 5px;
+    min-height: 100px;
 }
 
 .dragable h3 {
@@ -189,11 +183,12 @@ textarea:focus, input[type="text"]:focus {
     background-color: #A16c7E;
 }
 
-.dragable textarea {
-    font-size: 13px;
-    color:#312530;
-    background: none;
+.close-btn {
+    background-color: #edced2;
     border: none;
+    position: absolute;
+    top: 5px;
+    right: 5px;
 }
 
 .popup-btns {
@@ -259,6 +254,11 @@ textarea:focus, input[type="text"]:focus {
     margin: 0;
 }
 
-#current-conditions {
+#current-conditions, #location{
     font-size: 12px;
+}
+
+#location {
+    margin: 5px 0;
+    text-align: center;
 }

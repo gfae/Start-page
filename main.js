@@ -16,15 +16,23 @@ var popUp = function(oNote) {
     let id = "popup-".concat(note.id);
     div.classList.add("dragable");
     div.setAttribute("id", id);
-    div.innerHTML = `<h3 class="drag">${note.title}</h3>
-                    <textarea>${note.input}</textarea>`;
+    div.innerHTML = `<h3 class="drag">${note.title}</h3>`;
     document.body.appendChild(div);
-    let popup_btns = document.createElement("div");
-    popup_btns.classList.add("popup-btns");
-    div.appendChild(popup_btns);
+
+    // Textarea, auto sizing.
+    var text = document.createElement("textarea");
+    text.innerHTML = note.input;
+    div.appendChild(text);
+    expandTextArea(text);
+   
+    // Sticky placement
     div.style.left = note.x + "px";
     div.style.top = note.y + "px";
 
+    // Create buttons
+    let popup_btns = document.createElement("div");
+    popup_btns.classList.add("popup-btns");
+    div.appendChild(popup_btns);
     // Close button
     let close_btn = document.createElement('button');
     close_btn.innerHTML = "X";
@@ -38,7 +46,6 @@ var popUp = function(oNote) {
         close(this, false);
     };
     div.appendChild(close_btn);
-
     // Delete button
     let delete_btn = document.createElement('button');
     delete_btn.innerHTML = "Delete";
@@ -48,7 +55,6 @@ var popUp = function(oNote) {
         close(this, true);
     };
     popup_btns.appendChild(delete_btn);
-
     // Update button
     let update_btn = document.createElement('button');
     update_btn.innerHTML = "Update";
@@ -84,7 +90,7 @@ document.addEventListener('mousedown', function(e) {
         return;
     }
     dragTarget = e.target.parentElement;
-    dragTarget.parentNode.append(dragTarget);
+    dragTarget.parentElement.append(dragTarget);
     lastOffsetX = e.offsetX;
     lastOffsetY = e.offsetY;
     isDragging = true;
@@ -122,7 +128,6 @@ var close = function(e, nested) {
     }
 }
 
-
 // Display notes
 var displayNotes = function(notes) {
     const currentNotes = document.getElementById("current-notes");
@@ -153,6 +158,24 @@ var displayStickys = function(stickies) {
     })
 }
 
+// Expand text areas automatically
+var expandTextArea = function(area) {
+    area.style.height = 'inherit';
+    var computed = window.getComputedStyle(area);
+    var height = parseInt(computed.getPropertyValue('border-top-width'), 10)
+        + parseInt(computed.getPropertyValue('padding-top'), 10)
+        + area.scrollHeight
+        + parseInt(computed.getPropertyValue('padding-bottom'), 10)
+        + parseInt(computed.getPropertyValue('border-bottom-width'), 10);
+    area.style.height = height + 'px';
+}
+
+document.addEventListener('input', function (e) {
+    if (e.target.tagName.toLowerCase() == ('textarea') && e.target.parentElement.classList.contains('dragable')) {
+        expandTextArea(e.target);
+    } else {
+        return;}
+})
 
 // Add note
 const note_btn = document.getElementById("add-note-btn");
@@ -227,6 +250,7 @@ var getWeather = function (city, countryCode) {
         document.getElementById('weather-icon').src = "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png";
         document.getElementById("current-temp").innerHTML = cur_temp + '<span id="celcius">°C</span>';
         document.getElementById("current-conditions").innerHTML = data.weather[0].description;
+        document.getElementById('location').innerHTML = city + ', ' + countryCode;
         document.getElementById("temp-high").innerHTML = 'High: ' + temp_high + '°C';
         document.getElementById("temp-low").innerHTML = 'Low: ' + temp_low + '°C';
         ; })
